@@ -1,5 +1,5 @@
+import { ChatShell } from './components/ChatShell'
+
 export default function App() {
-  return (
-    <div></div>
-  )
+  return <ChatShell />
 }
