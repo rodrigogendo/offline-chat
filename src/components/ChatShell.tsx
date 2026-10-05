@@ -1,17 +1,26 @@
-import type { ChatMessage } from '../types/message'
+import type { ChatMessage, Sender } from '../types/message'
 
 type ChatShellProps = {
   messages?: ChatMessage[]
+  sender: Sender
+  inputValue: string
+  isSendDisabled: boolean
+  onSenderChange: (sender: Sender) => void
+  onInputChange: (value: string) => void
+  onSend: () => void
 }
 
-const sampleMessages: ChatMessage[] = [
-  { id: 'robot-1', sender: 'robot', text: 'Hello! I am ready to help.' },
-  { id: 'user-1', sender: 'user', text: 'Hi there.' },
-]
-
-export function ChatShell({ messages = sampleMessages }: ChatShellProps) {
-  const isUserMode = true
-  const isRobotMode = false
+export function ChatShell({
+  messages = [],
+  sender,
+  inputValue,
+  isSendDisabled,
+  onSenderChange,
+  onInputChange,
+  onSend,
+}: ChatShellProps) {
+  const isUserMode = sender === 'user'
+  const isRobotMode = sender === 'robot'
 
   return (
     <div className="min-h-screen bg-stone-100 px-4 py-6 text-slate-800">
@@ -56,6 +65,7 @@ export function ChatShell({ messages = sampleMessages }: ChatShellProps) {
                   <div className="inline-flex rounded-full bg-stone-200 p-1">
                     <button
                       type="button"
+                      onClick={() => onSenderChange('user')}
                       className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
                         isUserMode ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-600'
                       }`}
@@ -64,6 +74,7 @@ export function ChatShell({ messages = sampleMessages }: ChatShellProps) {
                     </button>
                     <button
                       type="button"
+                      onClick={() => onSenderChange('robot')}
                       className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
                         isRobotMode ? 'bg-violet-900 text-white shadow-sm' : 'text-slate-600'
                       }`}
@@ -78,15 +89,16 @@ export function ChatShell({ messages = sampleMessages }: ChatShellProps) {
                     aria-label="Message input"
                     rows={1}
                     placeholder="Type a message"
-                    value=""
+                    value={inputValue}
+                    onChange={(event) => onInputChange(event.target.value)}
                     className="min-h-[44px] flex-1 resize-none rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none placeholder:text-slate-400"
-                    readOnly
                   />
 
                   <button
                     type="button"
-                    disabled
-                    className="h-11 shrink-0 rounded-xl bg-slate-300 px-4 text-sm font-medium text-slate-500"
+                    onClick={onSend}
+                    disabled={isSendDisabled}
+                    className="h-11 shrink-0 rounded-xl bg-slate-300 px-4 text-sm font-medium text-slate-500 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     Send
                   </button>
