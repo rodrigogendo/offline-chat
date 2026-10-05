@@ -173,5 +173,5 @@ The project is successful when the user can open the app, type a message, switch
 - [x] Phase 1: Foundation and Structure
 - [x] Phase 2: Data Model and State
 - [x] Phase 3: Chat UI
-- [ ] Phase 4: Composer and Interaction
+- [x] Phase 4: Composer and Interaction
 - [ ] Phase 5: Polish and Validation

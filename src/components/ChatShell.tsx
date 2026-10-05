@@ -23,6 +23,7 @@ export function ChatShell({
   const isUserMode = sender === 'user'
   const isRobotMode = sender === 'robot'
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+  const historyRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const textarea = textareaRef.current
@@ -32,13 +33,28 @@ export function ChatShell({
     }
 
     textarea.style.height = 'auto'
-    textarea.style.height = `${Math.min(textarea.scrollHeight, 160)}px`
+    const contentHeight = textarea.scrollHeight
+    const maxHeight = 118
+    const styles = getComputedStyle(textarea)
+    const borderHeight =
+      Number.parseFloat(styles.borderTopWidth) + Number.parseFloat(styles.borderBottomWidth)
+    const requiredHeight = contentHeight + borderHeight
+    textarea.style.height = `${Math.min(requiredHeight, maxHeight)}px`
+    textarea.style.overflowY = requiredHeight > maxHeight ? 'auto' : 'hidden'
   }, [inputValue])
 
+  useEffect(() => {
+    const history = historyRef.current
+
+    if (history) {
+      history.scrollTop = history.scrollHeight
+    }
+  }, [messages])
+
   return (
-    <div className="min-h-screen bg-stone-100 px-4 py-6 text-slate-800">
-      <div className="mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-md items-center justify-center">
-        <div className="flex h-[calc(100vh-3rem)] w-full max-w-md flex-col overflow-hidden rounded-4xl border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.08)]">
+    <div className="h-dvh overflow-hidden bg-stone-100 px-4 py-6 text-slate-800">
+      <div className="mx-auto flex h-full min-h-0 w-full max-w-md items-center justify-center">
+        <div className="flex h-full min-h-0 w-full max-w-md flex-col overflow-hidden rounded-4xl border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.08)]">
           <header className="border-b border-slate-200 bg-white px-5 py-4">
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-violet-600">
               Offline Chat
@@ -46,8 +62,11 @@ export function ChatShell({
             <h1 className="mt-1 text-xl font-semibold text-slate-900">Assistant</h1>
           </header>
 
-          <main className="flex flex-1 flex-col bg-stone-50">
-            <div className="flex-1 overflow-y-auto overflow-x-hidden p-4">
+          <main className="flex min-h-0 flex-1 flex-col bg-stone-50">
+            <div
+              ref={historyRef}
+              className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden scrollbar-gutter-stable p-4"
+            >
               <div className="flex min-h-full flex-col gap-3">
                 {messages.map((message) => {
                   const isUser = message.sender === 'user'
@@ -120,7 +139,7 @@ export function ChatShell({
                         }
                       }
                     }}
-                    className="min-h-11 max-h-40 flex-1 resize-none overflow-y-auto rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors placeholder:text-slate-400"
+                    className="min-h-11 max-h-29.5 flex-1 resize-none overflow-y-hidden rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm leading-5 text-slate-700 outline-none transition-colors placeholder:text-slate-400"
                   />
 
                   <button
