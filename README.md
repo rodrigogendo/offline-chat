@@ -1,75 +1,58 @@
-# React + TypeScript + Vite
+# Offline Chat
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight React + TypeScript chat interface designed for a simple, offline-first messaging demo.
 
-Currently, two official plugins are available:
+The app presents a single-screen chat experience where a user can type a message, choose whether it is sent as the user or robot, and see it appear in the conversation timeline.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live demo
 
-## React Compiler
+https://rodrigogendo.github.io/offline-chat/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Mobile-first single-window chat layout
+- Sender toggle for user and robot messages
+- Multiline message composer with auto-resizing textarea
+- Send button disabled when the input is empty
+- Local in-memory message state only, with no backend or persistence layer
+- Clean responsive styling built with Vite, React, TypeScript, and Tailwind CSS
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Vite
+- React
+- TypeScript
+- Tailwind CSS
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Local development
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the app in development mode:
+   ```bash
+   npm run dev
+   ```
+3. Open the local URL shown in the terminal, usually:
+   ```text
+   http://localhost:5173
+   ```
 
+## Production build
+
+```bash
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## GitHub Pages deployment
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+This project is configured for deployment to GitHub Pages through GitHub Actions.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The deploy workflow builds the app and publishes the generated static site from the `dist` folder.
 
-```
+## Project notes
+
+- Message history lives only in component state and resets on refresh.
+- The app is intentionally local and does not require a backend.
+- This project is focused on interaction and UI polish rather than persistence or AI integration.
