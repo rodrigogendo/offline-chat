@@ -53,8 +53,8 @@ export function ChatShell({
 
   return (
     <div className="h-dvh overflow-hidden bg-stone-100 px-4 py-6 text-slate-800">
-      <div className="mx-auto flex h-full min-h-0 w-full max-w-md items-center justify-center">
-        <div className="flex h-full min-h-0 w-full max-w-md flex-col overflow-hidden rounded-4xl border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.08)]">
+      <div className="mx-auto flex h-full min-h-0 w-full max-w-md items-center justify-center sm:max-w-lg">
+        <div className="flex h-full min-h-0 w-full max-w-md flex-col overflow-hidden rounded-4xl border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.08)] sm:max-w-lg">
           <header className="border-b border-slate-200 bg-white px-5 py-4">
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-violet-600">
               Offline Chat
@@ -94,7 +94,7 @@ export function ChatShell({
             <div className="border-t border-slate-200 bg-[#f9f7f4] p-4">
               <div
                 className={`rounded-2xl border bg-[#f8f7f5] p-3 shadow-inner transition-colors ${
-                  isRobotMode ? 'border-violet-900' : 'border-slate-200'
+                  isRobotMode ? 'border-violet-900 shadow-[inset_0_0_0_1px_rgba(76,29,149,0.18)]' : 'border-slate-200'
                 }`}
               >
                 <div className="flex items-center justify-between gap-3">
@@ -103,8 +103,9 @@ export function ChatShell({
                   <div className="inline-flex rounded-full bg-stone-200 p-1">
                     <button
                       type="button"
+                      aria-pressed={isUserMode}
                       onClick={() => onSenderChange('user')}
-                      className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                      className={`rounded-full px-3 py-1 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 ${
                         isUserMode ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-600'
                       }`}
                     >
@@ -112,8 +113,9 @@ export function ChatShell({
                     </button>
                     <button
                       type="button"
+                      aria-pressed={isRobotMode}
                       onClick={() => onSenderChange('robot')}
-                      className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                      className={`rounded-full px-3 py-1 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 ${
                         isRobotMode ? 'bg-violet-900 text-white shadow-sm' : 'text-slate-600'
                       }`}
                     >
@@ -139,14 +141,14 @@ export function ChatShell({
                         }
                       }
                     }}
-                    className="min-h-11 max-h-29.5 flex-1 resize-none overflow-y-hidden rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm leading-5 text-slate-700 outline-none transition-colors placeholder:text-slate-400"
+                    className="min-h-[44px] max-h-[118px] flex-1 resize-none overflow-y-hidden rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm leading-5 text-slate-700 outline-none transition-colors placeholder:text-slate-400 focus:border-violet-400 focus:ring-2 focus:ring-violet-100"
                   />
 
                   <button
                     type="button"
                     onClick={onSend}
                     disabled={isSendDisabled}
-                    className="h-11 shrink-0 rounded-xl bg-slate-300 px-4 text-sm font-medium text-slate-500 transition-colors disabled:cursor-not-allowed disabled:opacity-60"
+                    className="h-11 shrink-0 rounded-xl bg-violet-600 px-4 text-sm font-medium text-white transition-colors hover:bg-violet-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:hover:bg-slate-300"
                   >
                     Send
                   </button>
