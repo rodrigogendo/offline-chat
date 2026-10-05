@@ -77,7 +77,7 @@ export function ChatShell({
                       className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}
                     >
                       <div
-                        className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm leading-6 shadow-sm whitespace-pre-wrap break-words overflow-wrap-anywhere ${
+                        className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm leading-6 shadow-sm whitespace-pre-wrap wrap-break-word overflow-wrap-anywhere ${
                           isUser
                             ? 'bg-violet-600 text-white'
                             : 'border border-slate-200 bg-white text-slate-700'
@@ -141,7 +141,7 @@ export function ChatShell({
                         }
                       }
                     }}
-                    className="min-h-[44px] max-h-[118px] flex-1 resize-none overflow-y-hidden rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm leading-5 text-slate-700 outline-none transition-colors placeholder:text-slate-400 focus:border-violet-400 focus:ring-2 focus:ring-violet-100"
+                    className="min-h-11 max-h-29.5 flex-1 resize-none overflow-y-hidden rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm leading-5 text-slate-700 outline-none transition-colors placeholder:text-slate-400 focus:border-violet-400 focus:ring-2 focus:ring-violet-100"
                   />
 
                   <button
