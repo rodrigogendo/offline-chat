@@ -111,11 +111,16 @@ export function ChatShell({
                     placeholder="Type a message"
                     value={inputValue}
                     onChange={(event) => onInputChange(event.target.value)}
-                    className={`min-h-11 flex-1 resize-none rounded-xl border bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors placeholder:text-slate-400 ${
-                      isRobotMode
-                        ? 'border-violet-900 focus:border-violet-900'
-                        : 'border-slate-200 focus:border-violet-300'
-                    }`}
+                    onKeyDown={(event) => {
+                      if (event.key.toLowerCase() === 'enter' && !event.shiftKey) {
+                        event.preventDefault()
+
+                        if (!isSendDisabled) {
+                          onSend()
+                        }
+                      }
+                    }}
+                    className="min-h-11 flex-1 resize-none overflow-y-auto rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors placeholder:text-slate-400 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
                   />
 
                   <button

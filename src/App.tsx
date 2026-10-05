@@ -2,13 +2,8 @@ import { useState } from 'react'
 import { ChatShell } from './components/ChatShell'
 import type { ChatMessage, Sender } from './types/message'
 
-const defaultMessages: ChatMessage[] = [
-  { id: 'robot-1', sender: 'robot', text: 'Hello! I am ready to help.' },
-  { id: 'user-1', sender: 'user', text: 'Hi there.' },
-]
-
 export default function App() {
-  const [messages, setMessages] = useState<ChatMessage[]>(defaultMessages)
+  const [messages, setMessages] = useState<ChatMessage[]>([])
   const [sender, setSender] = useState<Sender>('user')
   const [inputValue, setInputValue] = useState('')
 
