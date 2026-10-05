@@ -47,7 +47,7 @@ export function ChatShell({
           </header>
 
           <main className="flex flex-1 flex-col bg-stone-50">
-            <div className="flex-1 overflow-y-auto p-4">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden p-4">
               <div className="flex min-h-full flex-col gap-3">
                 {messages.map((message) => {
                   const isUser = message.sender === 'user'
@@ -58,7 +58,7 @@ export function ChatShell({
                       className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}
                     >
                       <div
-                        className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm leading-6 shadow-sm ${
+                        className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm leading-6 shadow-sm whitespace-pre-wrap break-words overflow-wrap-anywhere ${
                           isUser
                             ? 'bg-violet-600 text-white'
                             : 'border border-slate-200 bg-white text-slate-700'
@@ -112,7 +112,7 @@ export function ChatShell({
                     value={inputValue}
                     onChange={(event) => onInputChange(event.target.value)}
                     onKeyDown={(event) => {
-                      if (event.key.toLowerCase() === 'enter' && !event.shiftKey) {
+                      if (event.key === 'Enter' && !event.shiftKey) {
                         event.preventDefault()
 
                         if (!isSendDisabled) {
@@ -120,7 +120,7 @@ export function ChatShell({
                         }
                       }
                     }}
-                    className="min-h-11 flex-1 resize-none overflow-y-auto rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors placeholder:text-slate-400 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                    className="min-h-11 max-h-40 flex-1 resize-none overflow-y-auto rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition-colors placeholder:text-slate-400"
                   />
 
                   <button
